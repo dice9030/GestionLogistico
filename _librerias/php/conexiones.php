@@ -1,9 +1,9 @@
 <?php
 
-const DB_SERVER ="104.236.16.206";
+const DB_SERVER ="localhost";
 const DB_NAME = "gestiondc";
-const DB_USER = "DCelis";
-const DB_PASSWORD = "28rcYMcCtVdsTvLm";
+const DB_USER = "root";
+const DB_PASSWORD = "";
 
 function PDOConnection($server = null, $dbname = null, $user = null, $password = null) {
     $SERVER = ($server) ? $server : DB_SERVER;
