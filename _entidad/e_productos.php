@@ -1,7 +1,7 @@
 <?php
 require_once('../_librerias/php/funciones.php');
 require_once('../_librerias/php/conexiones.php');
-#require_once('../_classDatos/cd_producto.php');
+//require_once('../_classDatos/cd_producto.php');
 
 
 error_reporting(E_ERROR);
@@ -14,16 +14,20 @@ if (get('Productos')){ Productos(get('Productos'));}
 if (get("metodo") != ""){
     
     if(get("TipoDato") == "archivo"){
+         if (protect(get("metodo")) == "FProducto") {
+            $archivo = upload('admin', 'Empresa', $vConex);
+            echo json_encode($archivo);
+        }
     }
     
     function p_interno($codigo,$campo){
         
         if(get("metodo") == "SysFomr1"){
             if ($campo == "CODIGO"){
-                $vcamp = "'".post("NumDoc")."-"."'";
-                $valor = " 'Form_".$vcamp." ' ";
+              //  $vcamp = "'".post("NumDoc")."-"."'";
+              //  $valor = " 'Form_".$vcamp." ' ";
             }else{$valor ="";}
-                return $valor; 
+              //  return $valor; 
             }
             
     }
@@ -32,11 +36,22 @@ if (get("metodo") != ""){
     }			
     if(get("TipoDato") == "texto"){
         if(get("transaccion") == "UPDATE"){
-            if(get("metodo") == "Entidades"){p_gf_ult("Entidad",get('codEnt'),$CN);Productos("Listado");}            
+            $CodigoProducto = get("CodigoProducto");
+            if(get("metodo") == "FProducto"){
+              //  p_gf("FProducto",$CN,$CodigoProducto);
+                p_gf_udp("FProducto", $CN, $CodigoProducto, 'Codigo');
+                Productos("Listado");
+            }           
+             
+
          }
 
         if(get("transaccion") == "INSERT"){
-            if(get("metodo") == "Entidades"){p_gf_ult("Entidad","",$CN);Productos("Listado");}
+            if(get("metodo") == "FProducto"){
+                //p_gf("FProducto",$CN,"");
+                p_gf_udp("FProducto", $CN, '', 'Codigo');
+                Productos("Listado");
+            }
            
         }	
         if(get("transaccion") == "OTRO"){
@@ -73,10 +88,30 @@ function Productos($Arg){
             $btn = "<div class='botIconS'><i class='icon-arrow-left'></i></div>]".$enlace."?Productos=Listado]optionbody}";	
             $btn = Botones($btn, 'botones1','');		
             $btn = tituloBtnPn("<span>Registrar</span><p > REGISTRO DE PRODUCTOS</p><div class='bicel'></div>",$btn,"50px","TituloA");
-            
-           # $uRLForm ="Buscar]".$enlace."?Entidades=Confirmar]PanelB]F]}";
+            $tSelectD = array(
+                'TipoProducto'       => 'SELECT Codigo,Concepto FROM matipoproducto',
+                'Categoria'       => 'SELECT Codigo,Abreviatura FROM macategoriaproducto'
+               
+            );
 
-            $form = c_form_ult('', $CN,'FProducto', 'CuadroA', $path, $uRLForm, "'".$codEntidad."'", $tSelectD);
+
+            $path = array('Imagen' => '../_files/producto/');
+            if(!file_exists($path['Imagen'])){
+                W("La carpeta 'Formatos' no existe en esta empresa...<br>");
+                W("Creando la carpeta...<br>");
+                if(!mkdir($path['Imagen'],0777,true)){
+                    W("ERROR: No se puedo crear la carpeta<br>");
+                }else{
+                    W("&check; Se creo la carpeta<br>");
+                }
+            }
+            //$uRLForm ="".$enlace."?metodo=procesaForm&FArticulos1=INSERT";
+       // $s = c_form($vConex,"FArticulos1","CuadroA",$path,$uRLForm);
+                                                                                  //]vista]F]}
+            $uRLForm = "Guardar]".$enlace."?metodo=FProducto&transaccion=INSERT]optionbody]F]}";
+
+            $form = c_form_adp('', $CN,'FProducto', 'CuadroA', $path, $uRLForm, "'".$codEntidad."'", $tSelectD,'Codigo');
+        //    $Form = c_form_adp('', $vC, "lecurso_crear", "CuadroA", $path, $uRLForm, $EvalDetalleCod, "", 'Codigo');
             $form = "<div style='width:100%;'>".$btn.$form."</div>";
             $s = "<div class= 'PanelPadding'>".$form."</div>";             
             WE($s);
@@ -86,10 +121,27 @@ function Productos($Arg){
             $btn = "<div class='botIconS'><i class='icon-arrow-left'></i></div>]".$enlace."?Productos=Listado]optionbody}"; 
             $btn = Botones($btn, 'botones1','');        
             $btn = tituloBtnPn("<span>Registrar</span><p > REGISTRO DE PRODUCTOS</p><div class='bicel'></div>",$btn,"50px","TituloA");
-            
-            #$uRLForm ="Buscar]".$enlace."?Entidades=Confirmar]PanelB]F]}";
+             $tSelectD = array(
+                'TipoProducto'       => 'SELECT Codigo,Concepto FROM matipoproducto',
+                'Categoria'       => 'SELECT Codigo,Abreviatura FROM macategoriaproducto'
+               
+            );
 
-            $form = c_form_ult('',$CN,'FProducto', 'CuadroA', $path, $uRLForm, $CodigoProducto, $tSelectD);
+            $path = array('Imagen' => '../_files/producto/');
+            if(!file_exists($path['Imagen'])){
+                W("La carpeta 'Formatos' no existe en esta empresa...<br>");
+                W("Creando la carpeta...<br>");
+                if(!mkdir($path['Imagen'],0777,true)){
+                    W("ERROR: No se puedo crear la carpeta<br>");
+                }else{
+                    W("&check; Se creo la carpeta<br>");
+                }
+            }
+
+
+            $uRLForm = "Guardar]".$enlace."?metodo=FProducto&transaccion=UPDATE&CodigoProducto={$CodigoProducto}]optionbody]F]}";
+
+            $form = c_form_adp('',$CN,'FProducto', 'CuadroA', $path, $uRLForm, $CodigoProducto, $tSelectD,'Codigo');
             $form = "<div style='width:100%;'>".$btn.$form."</div>";
             $s = "<div class= 'PanelPadding'>".$form."</div>";             
             WE($s);

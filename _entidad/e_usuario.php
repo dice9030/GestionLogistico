@@ -32,11 +32,13 @@ if (get("metodo") != ""){
     }			
     if(get("TipoDato") == "texto"){
         if(get("transaccion") == "UPDATE"){
-            if(get("metodo") == "Entidades"){p_gf_ult("Entidad",get('codEnt'),$CN);Productos("Listado");}            
+            $CodigoUsuario = get("CodigoUsuario");
+            if(get("metodo") == "FUsuario"){p_gf("FUsuario",$CN,$CodigoUsuario);Usuario("Listado");}            
          }
 
         if(get("transaccion") == "INSERT"){
-            if(get("metodo") == "Entidades"){p_gf_ult("Entidad","",$CN);Productos("Listado");}
+
+            if(get("metodo") == "FUsuario"){p_gf("FUsuario",$CN,"");Usuario("Listado");}
            
         }	
         if(get("transaccion") == "OTRO"){
@@ -74,10 +76,8 @@ function Usuario($Arg){
             $btn = "<div class='botIconS'><i class='icon-arrow-left'></i></div>]".$enlace."?Usuario=Listado]optionbody}";	
             $btn = Botones($btn, 'botones1','');		
             $btn = tituloBtnPn("<span>Registrar</span><p > REGISTRO DE USUARIO</p><div class='bicel'></div>",$btn,"50px","TituloA");
-            
-           # $uRLForm ="Buscar]".$enlace."?Entidades=Confirmar]PanelB]F]}";
-
-            $form = c_form_ult('', $CN,'FUsuario', 'CuadroA', $path, $uRLForm, "'".$codEntidad."'", $tSelectD);
+            $uRLForm = "Guardar]".$enlace."?metodo=FUsuario&transaccion=INSERT]optionbody]F]}";
+            $form = c_form_adp('', $CN,'FUsuario', 'CuadroA', $path, $uRLForm, "'".$codEntidad."'", $tSelectD,'Codigo');
             $form = "<div style='width:100%;'>".$btn.$form."</div>";
             $s = "<div class= 'PanelPadding'>".$form."</div>";             
             WE($s);
@@ -86,11 +86,9 @@ function Usuario($Arg){
             $CodigoUsuario = get("CodigoUsuario");
             $btn = "<div class='botIconS'><i class='icon-arrow-left'></i></div>]".$enlace."?Usuario=Listado]optionbody}"; 
             $btn = Botones($btn, 'botones1','');        
-            $btn = tituloBtnPn("<span>Registrar</span><p > REGISTRO DE USUARIO</p><div class='bicel'></div>",$btn,"50px","TituloA");
-            
-            #$uRLForm ="Buscar]".$enlace."?Entidades=Confirmar]PanelB]F]}";
-
-            $form = c_form_ult('',$CN,'FUsuario', 'CuadroA', $path, $uRLForm, $CodigoUsuario, $tSelectD);
+            $btn = tituloBtnPn("<span>Registrar</span><p > REGISTRO DE USUARIO</p><div class='bicel'></div>",$btn,"50px","TituloA");        
+            $uRLForm = "Guardar]".$enlace."?metodo=FUsuario&transaccion=UPDATE&CodigoUsuario={$CodigoUsuario}]optionbody]F]}";
+            $form = c_form_adp('',$CN,'FUsuario', 'CuadroA', $path, $uRLForm, $CodigoUsuario, $tSelectD,'Codigo');
             $form = "<div style='width:100%;'>".$btn.$form."</div>";
             $s = "<div class= 'PanelPadding'>".$form."</div>";             
             WE($s);

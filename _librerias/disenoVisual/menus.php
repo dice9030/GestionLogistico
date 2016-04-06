@@ -85,56 +85,71 @@ function menuAdmin($valor) {
     
 }
   
-function menuMaster($UsuarioAdmin) {
-		
-    $html = '<!DOCTYPE html> ';
-    $html = $html.'<html lang="es">';
-    $html = $html.'<head>';
-    $html = $html.'<title>Owl</title>';
-    $html = $html.' <meta charset="utf-8">';
-    $html = $html.' <meta name="viewport" content="width=device-width, initial-scale=1.0">';
-    $html = $html.'<meta name="description" content="">';
-    $html = $html.'<meta name="keywords" content="">';
-    $html = $html.' <meta name="author" content="">';
-    $html = $html.'<script src=\'/_librerias/js/jquery.min.js\' type=\'text/javascript\'></script>';
-    $html = $html.'<script type="text/javascript" src="_librerias/js/global.js"></script>';
-    $html = $html.'<script type="text/javascript" src="_librerias/js/ajaxglobal.js"></script>';
-    $html = $html.'<link href="./_estilos/master.css" rel="stylesheet" type="text/css" />';
-    $html = $html. '</head>';
-    $html = $html.'<body>';
-    $html = $html.'<div class="site" id="site">';			
+function menuMaster() {
+    global $num_rand,$vConex;
 
-    $html = $html.'<div id="menu" class="MenuGeneral">';
-    $html = $html.'<div   class="MenuGeneralCentral" >';
+    $html = "
+        <!DOCTYPE html>
+        <html lang='es'>
+        <head>
+            <title>Owl</title>
+            <meta charset='utf-8'>
+            <meta name='viewport' content='width=device-width, user-scalable=no, initial-scale=1.0, user-scalable=1.0, minimum-scale=1.0, maximum-scale=1.0'>
+            <meta name='description'>
+            <meta name='keywords'>
+            <meta name='author' content=''>
+            <script type='text/javascript' src='_librerias/js/global.js'></script>
+            <script type='text/javascript' src='_librerias/js/ajaxglobal.js'></script>
+            <script type='text/javascript' src='/owlgroup/_librerias/js/jquery-2.1.1.min.js'></script>
+            <script type='text/javascript' src='/owlgroup/_librerias/js/jquery-ui.min.js'></script>
+            <script type='text/javascript' src='/owlgroup/_librerias/js/owlchat/zilli.js'></script>
+            <script type='text/javascript' src='/owlgroup/_librerias/js/owlchat/AjaxZilli.js'></script>
+            <script type='text/javascript' src='/owlgroup/_librerias/js/popup/jquery.popup.js'></script>
 
-    $sClassA ="font-weight:400;font-size:1.4em;";
-    $sClassB ="font-weight:lighter;font-size:0.9em;margin:0px;";
+            <link href='./_estilos/OwlStyles.css' rel='stylesheet' type='text/css'/>
+            <link href='/owlgroup/_estilos/popup/popup.css' rel='stylesheet' type='text/css'/>
+        </head>
+        <body>
+            <div class='site'>
+            <div id='menu' class='mHSinSubElementosA001 tamano'>";
 
     $sUrlPanelesA = "PanelA[PanelA[./_vistas/carrusel.html?vista=PanelA[1000|";
-    $sUrlPanelesA = $sUrlPanelesA."PanelB[PanelB[./_vistas/site.php?vista=PanelB[2000|";	
-    $sBotMatris = "<div style='".$sClassA.";color:#10CBF6;' >Gestión DC</div><div style='".$sClassB."'>HERRAMIENTAS</div>]".$sUrlPanelesA."]cuerpo]RZ}";
-    if(!empty($UsuarioAdmin)){
-			
-        // $sBotMatris = $sBotMatris."Gestión]./_vistas/sys_gestion.php?vista=Felipe]cuerpo]C}";
-        // $sBotMatris = $sBotMatris."H Inicio]./_vistas/adminTablasForms.php?site=yes]cuerpo]C}";				
-        $sBotMatris = $sBotMatris."Gestión Objetos]./_vistas/adminTablasFormsNew.php?site=yes]cuerpo]C}";	
-        $sBotMatris = $sBotMatris."Salir]./master.php?CierraSesion=Yess]site]C}";				
-    }
+    $sUrlPanelesA .= "PanelB[PanelB[./_vistas/site.php?vista=PanelB[2000|";
 
-    $sBotMatris = $sBotMatris."Ayuda]./_vistas/adminTablasForms.php?site=yes]cuerpo]C}";
+    $sClassA = "font-weight:bold;font-size:1em;line-height:20px;";
+    $sClassB = "font-weight:lighter;font-size:0.9em;margin:2px 0px 0px 2px;";
+
+    $sBotMatris = "<div style='{$sClassA}'  style='float: left;width: 30%;'>DEFSEI</div><div style='{$sClassB}'>Herramientas</div>]{$sUrlPanelesA}]cuerpo]RZ}";
+    $sBotMatris .= "CT - CF ]./_vistas/adminTablasForms.php?vista=Felipe]cuerpo]C}";
+    $sBotMatris .= "Salir]salir_master.php]cuerpo]C}";
+
     $sTipoAjax = "true";
-    $sClase  = "menuHorz001";
-    $sBot = Boton001($sBotMatris,$sClase,$sTipoAjax);
+    $sClase = "menuHorz001";
+    $sBot = Boton001($sBotMatris, $sClase, $sTipoAjax);
 
-    $html = $html.$sBot.' </div>';
-    //$html .='<div id="bloqueo" style="width:100%;height:100%;position:fixed;background:-webkit-linear-gradient(left, rgba(74,64,63,0.23) 0%, rgba(74,64,63,0.22) 0%, rgba(74,64,63,0.22) 100%);display:none;z-index:6;height:100%;">';
-    $html = $html.' </div>';
-    return  $html;
-	
+    $master_access = $_SESSION["master_access"];
+
+    $Q_U = " SELECT * FROM administradores WHERE AdminCod = {$master_access}";
+
+    $Obj = fetchOne($Q_U, $vConex);
+    $Nombres=$Obj->Nombres;
+    $ApellidoPat=$Obj->ApellidoPat;
+    $Usuario=$Obj->Usuario;
+
+    $sBot .=' <div class="menuHorz001" style="float: right;width: 30%;">
+                <ul><li class="razonSocial" style="float: right;text-align: center;">
+                <div style="font-weight:bold;font-size:1em;line-height:20px;">'.$Nombres.' '.$ApellidoPat.'</div>
+                <div style="font-weight:lighter;font-size:0.9em;margin:2px 0px 0px 2px;">Usuario</div>
+                </li></ul>
+              </div>';
+
+    $html = "{$html}{$sBot}</div>";
+    return $html;
 }
+
 	
 function menuEmpresaSite() {
-    $JS = "onclick=enviaFormRD('../_vistas/login_user.php?metodo=login_usuario&transaccion=OTRO&empresa=','Form_login_usuario','panelMsg','/projects.php');";
+    $JS = "onclick=enviaFormRD('../_vistas/login_user.php?metodo=login_usuario&transaccion=OTRO&empresa=','Form_login_usuario','panelMsg','/projects.php?');";
     $html = '<!DOCTYPE html>
             <html lang="es">
             <head>
@@ -216,6 +231,43 @@ function menuEmpresaSite_adm($Codigo,$Cod_User) {
     $html = $html.'<script type="text/javascript" src="_librerias/js/ajaxglobal.js"></script>';
     $html = $html.'<script type="text/javascript" src="_librerias/js/dinamico.js"></script>';
     $html = $html.'<link href="./_estilos/apliacion.css" rel="stylesheet" type="text/css" />';
+    $html = $html.'<link href="./_estilos/OwlStyles.css?vr=4036000" rel="stylesheet" type="text/css" />';   
+
+
+/**
+
+        <script type="text/javascript" src="/owlgroup/_librerias/js/jquery-2.1.1.min.js"></script>
+        <script type="text/javascript" src="/owlgroup/_librerias/js/lib/moment.min.js"></script>
+        <script type="text/javascript" src="/owlgroup/_librerias/js/jquery-ui.min.js"></script>
+        <script type="text/javascript" src="/owlgroup/_librerias/js/fullcalendar/fullcalendar.min.js"></script>
+        <script type="text/javascript" src="/owlgroup/_librerias/js/fullcalendar/es.js"></script>
+        <script type="text/javascript" src="/owlgroup/_librerias/js/owlchat/zilli.js"></script>
+        <script type="text/javascript" src="/owlgroup/_librerias/js/owlchat/AjaxZilli.js"></script>
+        <script type="text/javascript" src="/owlgroup/_librerias/js/popup/jquery.popup.js"></script>        
+        <script type="text/javascript" src="/owlgroup/_librerias/js/simply-toast.js"></script>        
+        <script type="text/javascript" src="/owlgroup/_librerias/js/sweetalert2.min.js"></script>
+        <script type="text/javascript" src="/owlgroup/_librerias/js/jquery.qtip.js"></script>        
+        <script type="text/javascript" src="/owlgroup/_librerias/js/jquery.dataTables.1.9.0.js"></script>          
+        <script type="text/javascript" src="/owlgroup/_librerias/js/task.js"></script>
+        <script type="text/javascript" src="https://chat.owlgroup.org/socket.io/socket.io.js"></script>
+        <script type="text/javascript" src="/owlgroup/_librerias/js/temporary.js"></script>
+
+        <link href="./_estilos/OwlStyles.css?vr=4036000" rel="stylesheet" type="text/css">
+        <link href="./_estilos/owl_room_responsive.css?vr=4036000" rel="stylesheet" type="text/css">
+        <link href="/owlgroup/_estilos/popup/popup.css" rel="stylesheet" type="text/css">
+        <link href="/owlgroup/_estilos/temporary.css" rel="stylesheet" type="text/css">
+        <link href="/owlgroup/_estilos/simply-toast.css" rel="stylesheet" type="text/css">
+        <link href="/owlgroup/_estilos/sweetalert2.css" rel="stylesheet" type="text/css">
+        <link href="/owlgroup/_estilos/jquery.qtip.css" rel="stylesheet" type="text/css">
+        <link href="/owlgroup/_estilos/owl_desktop.php" rel="stylesheet" type="text/css">
+        <link href="/owlgroup/_estilos/fullcalendar/fullcalendar.css?vr=4036000" rel="stylesheet">
+        <link href="/owlgroup/_estilos/fullcalendar/fullcalendar.print.css?vr=4036000" rel="stylesheet" media="print">
+
+
+*/
+
+
+
 
     $html = $html.'</head>';
     $html = $html.'<body id="Cuerpo_General">';
@@ -224,14 +276,15 @@ function menuEmpresaSite_adm($Codigo,$Cod_User) {
     $html .= '<div class="barra_fixed" > ';
     $html .= '<div class="barra_fixed_b"  > ';
     $html .= '<div class="barra_seg_a_1"  > ';
-    $html .= '<div style="float:left;" class="Title">Diego Celis</div>';
+    $html .= '<div style="float:left;" class="Title">MariCruz Perez</div>';
+
     $btn1  .= "<div class='Btn_User_MenuP' ><i class='icon-edit'></i><div class='Text_Icon'>Datos Principales</div></div>[/vistas/prueba.php[Cuerpo[ {";
     $btn1  .= "<div class='Btn_User_MenuP' ><i class='icon-cogs'></i><div class='Text_Icon'>Transacciones</div></div>[/vistas/prueba.php[Cuerpo[ {";   			
     $btn1  .= "<div class='Btn_User_MenuP' ><i class='icon-bar-chart'></i><div class='Text_Icon'>Analísis</div></div>[/vistas/prueba.php[Cuerpo[ {";         	
     $btn1  .= "<div class='Btn_User_MenuP' ><i class='icon-envelope-alt'></i><div class='Text_Icon'>Mensajes</div></div>[/vistas/prueba.php[Cuerpo[ {";         
     $btn1  .= "<div class='Btn_User_MenuP' ><i class='icon-user'></i><div class='Text_Icon'>Perfil</div></div>[/vistas/prueba.php[Cuerpo[ {";
     
-    $SMTransacciones = BotonesInv( $btn1,'BtnSM3','');
+   // $SMTransacciones = BotonesInv( $btn1,'BtnSM3','');
 
     //$btn = "| <i class='icon-chevron-down'></i>]SUBMENU]".$SMTransacciones."]SUBMENU]}";			
     $btn = Botones( $btn,'botones3B','');	
@@ -246,12 +299,12 @@ function menuEmpresaSite_adm($Codigo,$Cod_User) {
     $btn1  .= "Perfil de Usuario [./_vistas/g_perfil_usuario.php?Perfil=Listado[PanelB[{";
     $btn1  .= "Proceso x definir[/vistas/prueba.php[Cuerpo[{";
 
-    $SMCofinguracion = BotonesInv( $btn1,'BtnSM4','Configuraciones');
+   // $SMCofinguracion = BotonesInv( $btn1,'BtnSM4','Configuraciones');
 		
     $btn1  = "Configuración[./_vistas/g_configuracion_usuario.php?Usuario=Editar&nusuario=".$Cod_User."[PanelB[{";
     $btn1  .= "Cerrar sesión[../index.php?CerrarSesion=fri[Cuerpo_General[{";      
 
-    $SMSesion = BotonesInv( $btn1,'BtnSM4','Sesión');
+  //  $SMSesion = BotonesInv( $btn1,'BtnSM4','Sesión');
 
     $btn = "<span class='Btn_User_Menu' ><i class='icon-cog'></i></span>]SUBMENU]".$SMCofinguracion."]SUBMENU]}";		
     $btn .= "<span class='Btn_User_Menu' ><i class='icon-user'></i></span> <span class='BotonS1' >".$_SESSION['User']['string']."</span>]SUBMENU]".$SMSesion."]SUBMENU]Usuario]}";			

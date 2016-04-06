@@ -16,27 +16,30 @@ if (get("metodo") != ""){
     if(get("TipoDato") == "archivo"){
     }
     
-    function p_interno($codigo,$campo){
-        
-        if(get("metodo") == "SysFomr1"){
-            if ($campo == "CODIGO"){
-                $vcamp = "'".post("NumDoc")."-"."'";
-                $valor = " 'Form_".$vcamp." ' ";
-            }else{$valor ="";}
-                return $valor; 
+    function p_interno($codigo,$campo){     
+        if(get("metodo") == "FAlmacen"){
+            switch ($campo) {
+                case 'Usuario':
+                    $valor = "'admin'";
+                    break;                
+                default:
+                     $valor = "";
+                    break;             
             }
-            
+             return $valor;                 
+        }
     }
     function p_before($codigo){
 
     }			
     if(get("TipoDato") == "texto"){
         if(get("transaccion") == "UPDATE"){
-            if(get("metodo") == "Entidades"){p_gf_ult("Entidad",get('codEnt'),$CN);Productos("Listado");}            
+              $CodigoAlmacen = get("CodigoAlmacen");
+            if(get("metodo") == "FAlmacen"){p_gf("FAlmacen",$CN,$CodigoAlmacen);IngresoProducto("Listado");}            
          }
 
         if(get("transaccion") == "INSERT"){
-            if(get("metodo") == "Entidades"){p_gf_ult("Entidad","",$CN);Productos("Listado");}
+            if(get("metodo") == "FAlmacen"){p_gf("FAlmacen",$CN,"");IngresoProducto("Listado");}
            
         }	
         if(get("transaccion") == "OTRO"){
@@ -55,45 +58,117 @@ function IngresoProducto($Arg){
     switch ($Arg) {
         case "Listado":
             $btn = "Agregar]".$enlace."?IngresoProducto=Crear]optionbody}";
+            $btn .= "Detalle]".$enlace."?IngresoProducto=Detalle]optionbody}";
             $btn = Botones($btn, 'botones1','');		
-            $btn = tituloBtnPn("<span>Lista</span><p >REGISTRO DE STOCK</p><div class='bicel'></div>",$btn,"70px","TituloA");
+            $btn = tituloBtnPn("<span>Lista</span><p >REGISTRO DE STOCK</p><div class='bicel'></div>",$btn,"200px","TituloA");
             
-            $sql = "SELECT Producto,Cantidad,Codigo AS CodigoAjax FROM maalmacen ";
+            $sql = "  SELECT MPR.Descripcion,SUM(MAL.Cantidad) AS Cantidad,MPR.Codigo AS CodigoAjax
+                    FROM maalmacen MAL
+                    INNER JOIN maproducto AS MPR ON MAL.Producto=MPR.Codigo
+                    GROUP BY MPR.Descripcion, MPR.Codigo ";
            
             $clase = 'reporteA';
             $panel = 'optionbody';
-            $enlaceCod = 'CodigoProducto';
-            $url = $enlace."?IngresoProducto=Editar";
+            $enlaceCod = 'Producto';
+            $url = $enlace."?IngresoProducto=Detalle";
             $reporte = ListR2('',$sql, $CN, $clase,'', $url, $enlaceCod, $panel,'maalmacen','','');
             $s = "<div>".$btn.$reporte."</div>";
             WE($s);	
             
             break;
-        case "Crear":
+          case "Detalle":
+            $CodigoProducto = get("Producto");
+
+            $btn = "<div class='botIconS'><i class='icon-arrow-left'></i></div>]".$enlace."?IngresoProducto=Listado]optionbody}"; 
+            $btn .= "Agregar]".$enlace."?IngresoProducto=Crear]optionbody}";            
+            //$btn .= "Detalle]".$enlace."?IngresoProducto=Detalle]optionbody}";
+            
+            $btn = Botones($btn, 'botones1','');        
+            $btn = tituloBtnPn("<span>Lista</span><p >DETALLE DE PRODUCTOS</p><div class='bicel'></div>",$btn,"300px","TituloA");
+            
+            $sql = "  SELECT MPR.Descripcion,MAL.Cantidad AS Cantidad,MAL.FechaRegistro,MAL.Codigo AS CodigoAjax
+                      FROM maalmacen MAL
+                      INNER JOIN maproducto AS MPR ON MAL.Producto=MPR.Codigo ";
+
+            if($CodigoProducto){
+                    $sql .= "WHERE MPR.Codigo = '{$CodigoProducto}' ";
+            }
+                                   
+            $clase = 'reporteA';
+            $panel = 'optionbody';
+            $enlaceCod = 'CodigoAlmacen';
+            $url = $enlace."?IngresoProducto=Editar";
+            $reporte = ListR2('',$sql, $CN, $clase,'', $url, $enlaceCod, $panel,'maalmacen','','');
+            $s = "<div>".$btn.$reporte."</div>";
+            WE($s); 
+            
+            break;
+        case "Crear":           
+
+    
+            $uRLForm  = "Buscar]" . $enlace . "?IngresoProducto=BuscarProveedor&transaccion=BUSCAR&Campo=Proveedor_FAlmacen_C]Proveedor_FAlmacen_B]F]}";            
+            $form = c_form_adp("BUSCAR Proveedor ",$CN, "FBuscarProveedor", "CuadroA", '', $uRLForm, "", '');
+            $form = "<div style='width:600px;'>" . $form . "</div>";
+            $style = "top:0px;z-index:6;";
+            $FBusqueda = search($form, "Proveedor_FAlmacen", $style);
+
+
             $btn = "<div class='botIconS'><i class='icon-arrow-left'></i></div>]".$enlace."?IngresoProducto=Listado]optionbody}";	
             $btn = Botones($btn, 'botones1','');		
-            $btn = tituloBtnPn("<span>Registrar</span><p >REGISTRO DE STOCK</p><div class='bicel'></div>",$btn,"50px","TituloA");
-            
-           # $uRLForm ="Buscar]".$enlace."?Entidades=Confirmar]PanelB]F]}";
+            $btn = tituloBtnPn("<span>Registrar</span><p >REGISTRO DE STOCK</p><div class='bicel'></div>",$btn,"50px","TituloA");            
 
-            $form = c_form_ult('', $CN,'FAlmacen', 'CuadroA', $path, $uRLForm, "'".$codEntidad."'", $tSelectD);
-            $form = "<div style='width:100%;'>".$btn.$form."</div>";
+            $tSelectD = array(
+                'Producto'  => 'SELECT Codigo,Descripcion FROM maproducto'                        
+            );
+
+            $uRLForm = "Guardar]".$enlace."?metodo=FAlmacen&transaccion=INSERT]optionbody]F]}";
+            $form = c_form_adp('', $CN,'FAlmacen', 'CuadroA', $path, $uRLForm, "", $tSelectD,'Codigo');
+            $form = "<div style='width:100%;'>".$FBusqueda.$btn.$form."</div>";
             $s = "<div class= 'PanelPadding'>".$form."</div>";             
             WE($s);
         break;    
         case "Editar":
-            $CodigoProducto = get("CodigoProducto");
+            $CodigoAlmacen = get("CodigoAlmacen");        
+
+            $uRLForm  = "Buscar]" . $enlace . "?IngresoProducto=BuscarProveedor&transaccion=BUSCAR&Campo=Proveedor_FAlmacen_C]Proveedor_FAlmacen_B]F]}";            
+            $form = c_form_adp("BUSCAR Proveedor ",$CN, "FBuscarProveedor", "CuadroA", '', $uRLForm, "", '');
+            $form = "<div style='width:600px;'>" . $form . "</div>";
+            $style = "top:0px;z-index:6;";
+            $FBusqueda = search($form, "Proveedor_FAlmacen", $style);
+
             $btn = "<div class='botIconS'><i class='icon-arrow-left'></i></div>]".$enlace."?IngresoProducto=Listado]optionbody}"; 
             $btn = Botones($btn, 'botones1','');        
-            $btn = tituloBtnPn("<span>Registrar</span><p > REGISTRO DE STOCK</p><div class='bicel'></div>",$btn,"50px","TituloA");
-            
-            $uRLForm ="Buscar]".$enlace."?IngresoProducto=Confirmar]PanelB]F]}";
-
-            $form = c_form_ult('',$CN,'FAlmacen', 'CuadroA', $path, $uRLForm, $CodigoProducto, $tSelectD);
-            $form = "<div style='width:100%;'>".$btn.$form."</div>";
+            $btn = tituloBtnPn("<span>Registrar</span><p> REGISTRO DE STOCK</p><div class='bicel'></div>",$btn,"50px","TituloA");
+        
+            $tSelectD = array(
+                'Producto'  => 'SELECT Codigo,Descripcion FROM maproducto',                        
+                'Proveedor'  => "SELECT Codigo,CONCAT(Nombre,'',ApellidoPaterno) AS Nombres FROM maproveedor"
+            );
+         
+            $uRLForm = "Guardar]".$enlace."?metodo=FAlmacen&transaccion=UPDATE&CodigoAlmacen={$CodigoAlmacen}]optionbody]F]}";
+            $form = c_form_adp('',$CN,'FAlmacen', 'CuadroA', $path, $uRLForm, $CodigoAlmacen, $tSelectD,'Codigo');
+        
+            $form = "<div style='width:100%;'>".$FBusqueda.$btn.$form."</div>";
             $s = "<div class= 'PanelPadding'>".$form."</div>";             
             WE($s);
-        break;    
+        break;  
+       case 'BuscarProveedor':
+       
+        $Nombre = post("Nombre");
+            
+        $sql = "SELECT Nombre,ApellidoPaterno,RazonSocial,Tipo,Codigo AS CodigoAjax 
+                FROM maproveedor WHERE Nombre LIKE '%{$Nombre}%'";
+    
+        $clase = 'reporteA';
+        $enlaceCod = 'perfil_usuarios_entidad_cod';
+        $url = $enlace . "?AdminPerfilEditar=editaReg";
+        $panel = protect(get("Campo"));
+        $reporte = ListR2("", $sql, $CN, $clase, '', $url, $enlaceCod, $panel, 'Proveedor_FAlmacen', 'Buscar', '');
+       
+        WE($reporte);
+
+        break;
+ 
     }
     
 }	

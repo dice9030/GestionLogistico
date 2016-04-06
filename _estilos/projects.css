@@ -107,7 +107,7 @@ ul ul {
 
 .menu > li > a:before {
     content: '';
-    background-image: url(../images/sprite.png);
+/*    background-image: url(../images/sprite.png);*/
     background-repeat: no-repeat;
     font-size: 36px;
     height: 1em;
@@ -196,3 +196,17 @@ ul ul {
 .menu > li > ul li:hover a:before {
     color: #32373D;
 }
+
+
+
+.img-user{
+    background: url('../_imagenes/fondo-user.jpg');
+    text-align: center;
+    width: 100%;
+}
+
+.img-user img{
+    border-radius: 60px;
+    width:100px;
+    height:100px;
+ }

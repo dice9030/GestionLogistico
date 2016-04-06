@@ -34,11 +34,12 @@ if (get("metodo") != ""){
     }			
     if(get("TipoDato") == "texto"){
         if(get("transaccion") == "UPDATE"){
-            if(get("metodo") == "Entidades"){p_gf_ult("Entidad",get('codEnt'),$CN);Productos("Listado");}            
+            $CodigoTP = get('CodigoTP');
+            if(get("metodo") == "FTipoProducto"){p_gf("FTipoProducto",$CN,$CodigoTP);TipoProductos("Listado");}            
          }
 
         if(get("transaccion") == "INSERT"){
-            if(get("metodo") == "Entidades"){p_gf_ult("Entidad","",$CN);Productos("Listado");}
+            if(get("metodo") == "FTipoProducto"){p_gf("FTipoProducto",$CN,"");TipoProductos("Listado");}
            
         }	
         if(get("transaccion") == "OTRO"){
@@ -47,7 +48,7 @@ if (get("metodo") != ""){
     }
 
     if(get("transaccion") == "DELETE"){
-        if(get("metodo") == "Entidades"){DReg("ct_entidad","Codigo","'".get("codEnt")."'",$CN);Productos("Listado");}        
+        if(get("metodo") == "Entidades"){DReg("ct_entidad","Codigo","'".get("codEnt")."'",$CN);TipoProductos("Listado");}        
     }		
     exit();
 }
@@ -59,15 +60,13 @@ function TipoProductos($Arg){
 
            # $TipoProducto = new cltipoproducto();
            # $TipoProducto->setCodigoTipoProducto("Rojo");
-          #  W($TipoProducto->getCodigoTipoProducto());
+           # W($TipoProducto->getCodigoTipoProducto());
 
 
             $btn = "Agregar]".$enlace."?TipoProductos=Crear]optionbody}";
             $btn = Botones($btn, 'botones1','');		
-            $btn = tituloBtnPn("<span>Lista</span><p >TIPO DE PRODUCTO </p><div class='bicel'></div>",$btn,"70px","TituloA");
-            
-            $sql = "SELECT Concepto,Descripcion,Codigo AS CodigoAjax FROM matipoproducto ";
-           
+            $btn = tituloBtnPn("<span>Lista</span><p >TIPO DE PRODUCTO </p><div class='bicel'></div>",$btn,"70px","TituloA");            
+            $sql = "SELECT Concepto,Descripcion,Codigo AS CodigoAjax FROM matipoproducto ";           
             $clase = 'reporteA';
             $panel = 'optionbody';
             $enlaceCod = 'CodigoTP';
@@ -82,9 +81,9 @@ function TipoProductos($Arg){
             $btn = Botones($btn, 'botones1','');		
             $btn = tituloBtnPn("<span>Registrar</span><p > TIPO DE PRODUCTO </p><div class='bicel'></div>",$btn,"50px","TituloA");
             
-          #  $uRLForm ="Buscar]".$enlace."?TipoProductos=Confirmar]PanelB]F]}";
+            $uRLForm = "Guardar]".$enlace."?metodo=FTipoProducto&transaccion=INSERT]optionbody]F]}";
 
-            $form = c_form_L('',$CN,'FTipoProducto', 'CuadroA', $path, $uRLForm, "", $tSelectD);
+            $form = c_form_L('',$CN,'FTipoProducto', 'CuadroA', $path, $uRLForm, "", $tSelectD,'Codigo');
             $form = "<div style='width:100%;'>".$btn.$form."</div>";
             $s = "<div class= 'PanelPadding'>".$form."</div>";             
             WE($s);
@@ -96,10 +95,9 @@ function TipoProductos($Arg){
             $btn = Botones($btn, 'botones1','');        
             $btn = tituloBtnPn("<span>Registrar</span><p >TIPO DE PRODUCTO </p><div class='bicel'></div>",$btn,"50px","TituloA");
             
-           # $uRLForm ="Buscar]".$enlace."?Entidades=Confirmar]PanelB]F]}";
+            $uRLForm = "Guardar]".$enlace."?metodo=FTipoProducto&transaccion=UPDATE&CodigoTP={$CodigoTP}]optionbody]F]}";
 
-            #$form = c_form_ult('',$CN,'FTipoProducto', 'CuadroA', $path, $uRLForm, $CodigoTP, $tSelectD);
-            $form = c_form_ult('', $CN,'FTipoProducto', 'CuadroA', $path, $uRLForm, $CodigoTP, $tSelectD);
+            $form = c_form_adp('', $CN,'FTipoProducto', 'CuadroA', $path, $uRLForm, $CodigoTP, $tSelectD,'Codigo');
             $form = "<div style='width:100%;'>".$btn.$form."</div>";
             $s = "<div class= 'PanelPadding'>".$form."</div>";             
             WE($s);

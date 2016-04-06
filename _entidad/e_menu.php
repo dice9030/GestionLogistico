@@ -9,7 +9,8 @@ if(get("menu")){ menu(get("menu")); }
 
 
 function menu($Arg){
-    $title ="<div class=MenuVertical >Panel de Control</div>";
+    $title ="<div class=img-user><div class=cuadro-user><img src='_files/fotos/1.jpg' width=100px height=100px  ></div></div>
+                <div class=MenuVertical >Panel de Control</div>";
     switch ($Arg) {
         case 'Administrativo':
             $Menu = '<div id="wrapper">    
@@ -20,11 +21,15 @@ function menu($Arg){
                         <li class="item1" onclick=enviaVista("./_entidad/e_option.php?optionbody=Produccion","optionbody",""); ><a href="#" >Producción </a>           
                         </li>
                         <li class="item2" onclick=enviaVista("./_entidad/e_option.php?optionbody=Reporte","optionbody","");><a href="#">Reporte </a>
+                        </li>                       
+                        <li class="item4" onclick=enviaVista("./_entidad/e_option.php?optionbody=Pedidos","optionbody","");><a href="#">Pedidos</a>           
                         </li>
-                        <li class="item3" onclick=enviaVista("./_entidad/e_option.php?optionbody=ControlUsuario","optionbody","");><a href="#">Control de Usuario </a>           
+                         <li class="item3" onclick=enviaVista("./_entidad/e_option.php?optionbody=Clientes","optionbody","");><a href="#">Clientes </a>           
                         </li>
-                        <li class="item4" onclick=enviaVista("./_entidad/e_option.php?optionbody=Documento","optionbody","");><a href="#">Documentación </a>           
-                        </li>        
+                         <li class="item3" onclick=enviaVista("./_entidad/e_option.php?optionbody=ControlUsuario","optionbody","");><a href="#">Control de Usuario </a>           
+                        </li>
+                         <li class="item4" onclick=enviaVista("./_entidad/e_option.php?optionbody=Documento","optionbody","");><a href="#">Documentación </a>           
+                        </li> 
                         <li class="item5" onclick=enviaVista("./_entidad/e_option.php?optionbody=Web","optionbody","");><a href="#">WEB </a>
                         </li>
                     </ul>

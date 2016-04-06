@@ -203,7 +203,7 @@ function ShowDiv(sDiv){
 				$Celular =$_POST["Celular"];
 				$fechaNacimiento=$_POST["fechaNacimiento"];
 				$Edad=$_POST["Edad"];
-				$Direcci =$_POST["Direcci�nDomici"];
+				$DireccionDomici =$_POST["DireccionDomici"];
 				$Colegio=$_POST["Colegio"];
 				$TipoEsponsor=$_POST["TipoEsponsor"];
 				//$Estado=$_POST["Estado"];
@@ -219,7 +219,7 @@ function ShowDiv(sDiv){
 				$Sql=$Sql." celular ='".$Celular."' ,";
 				$Sql=$Sql." fechaNacimiento ='".$fechaNacimiento."' ,";
 				$Sql=$Sql." edad='".$Edad."' ,";
-				$Sql=$Sql." direccionDomiciliaria ='".$Direcci."' ,";
+				$Sql=$Sql." direccionDomiciliaria ='".$DireccionDomici."' ,";
 				$Sql=$Sql." Colegio ='".$Colegio."' ,";
 				$Sql=$Sql." tipoEsponsort  ='".$TipoEsponsor."' ,";
 				//$Sql=$Sql." Estado='".$Estado."' ";
@@ -237,7 +237,7 @@ function ShowDiv(sDiv){
 				$Celular =$_POST["Celular"];
 				$fechaNacimiento=$_POST["fechaNacimiento"];
 				$Edad=$_POST["Edad"];
-				$Direcci =$_POST["Direcci�nDomici"];
+				$DireccionDomici =$_POST["DireccionDomici"];
 				$Colegio=$_POST["Colegio"];
 				$TipoEsponsor=$_POST["TipoEsponsor"];
 				//$Estado=$_POST["Estado"];
@@ -254,7 +254,7 @@ function ShowDiv(sDiv){
 				$Sql=$Sql." celular ='".$Celular."' ,";
 				$Sql=$Sql." fechaNacimiento ='".$fechaNacimiento."' ,";
 				$Sql=$Sql." edad='".$Edad."' ,";
-				$Sql=$Sql." direccionDomiciliaria ='".$$Direcci."' ,";
+				$Sql=$Sql." direccionDomiciliaria ='".$DireccionDomici."' ,";
 				$Sql=$Sql." Colegio ='".$Colegio."' ,";
 				$Sql=$Sql." tipoEsponsort  ='".$TipoEsponsor."' ,";
 				//$Sql=$Sql." tipoEsponsort  ='".$TipoEsponsor."' ,";
@@ -284,7 +284,7 @@ $PanelB=$PanelB."<tr><td>Apellidos </td><td> <input type='text' name='Apellidos'
 $PanelB=$PanelB."<tr><td>Telefono </td><td><input type='text' name='Telefono' value='".LeeReg($sql,7)."' class='CampoDescripcionExt'></td></tr>"; $PanelB=$PanelB."<tr><td>Celular </td><td><input type='text' name='Celular' value='".LeeReg($sql,8)."' class='CampoDescripcionExt'></td></tr>";
 $PanelB=$PanelB."<tr><td>fechaNacimiento </td><td><input type='text' name='fechaNacimiento' value='".LeeReg($sql,3)."'class='CampoDescripcionExt'></td></tr>";
 $PanelB=$PanelB."<tr><td>Edad </td><td><input type='text' name='Edad' value='".LeeReg($sql,4)."' class='CampoDescripcion'></td></tr>";
-$PanelB=$PanelB."<tr><td>Direcci�n Domic. </td><td><input type='text' name='Direcci�nDomici' value='".LeeReg($sql,6)."' class='CampoDescripcionExt'></td></tr>";
+$PanelB=$PanelB."<tr><td>Direccion Domic. </td><td><input type='text' name='DireccionDomici' value='".LeeReg($sql,6)."' class='CampoDescripcionExt'></td></tr>";
 $PanelB=$PanelB."<tr><td>Colegio </td><td><input type='text' name='Colegio' value='".LeeReg($sql,9)."' class='CampoDescripcion'></td></tr>";
 $PanelB=$PanelB."<tr><td>TipoEsponsor  </td><td>";
 if (LeeReg($sql,10)==""){

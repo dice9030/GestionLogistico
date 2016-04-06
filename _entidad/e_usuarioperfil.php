@@ -32,11 +32,11 @@ if (get("metodo") != ""){
     }			
     if(get("TipoDato") == "texto"){
         if(get("transaccion") == "UPDATE"){
-            if(get("metodo") == "Entidades"){p_gf_ult("Entidad",get('codEnt'),$CN);Productos("Listado");}            
+            if(get("metodo") == "Entidades"){p_gf("Entidad",$CN,get('codEnt'));Productos("Listado");}            
          }
 
         if(get("transaccion") == "INSERT"){
-            if(get("metodo") == "Entidades"){p_gf_ult("Entidad","",$CN);Productos("Listado");}
+            if(get("metodo") == "Entidades"){p_gf("Entidad",$CN,"");Productos("Listado");}
            
         }	
         if(get("transaccion") == "OTRO"){
@@ -75,7 +75,7 @@ function UsuarioPefil($Arg){
             $btn = Botones($btn, 'botones1','');		
             $btn = tituloBtnPn("<span>Registrar</span><p > REGISTRO DE USUARIO</p><div class='bicel'></div>",$btn,"50px","TituloA");
 
-            $form = c_form_ult('', $CN,'FPerfil', 'CuadroA', $path, $uRLForm, "'".$codEntidad."'", $tSelectD);
+            $form = c_form_adp('', $CN,'FPerfil', 'CuadroA', $path, $uRLForm, "'".$codEntidad."'", $tSelectD,'Codigo');
             $form = "<div style='width:100%;'>".$btn.$form."</div>";
             $s = "<div class= 'PanelPadding'>".$form."</div>";             
             WE($s);
@@ -85,7 +85,7 @@ function UsuarioPefil($Arg){
             $btn = "<div class='botIconS'><i class='icon-arrow-left'></i></div>]".$enlace."?UsuarioPefil=Listado]optionbody}"; 
             $btn = Botones($btn, 'botones1','');        
             $btn = tituloBtnPn("<span>Registrar</span><p > REGISTRO DE USUARIO</p><div class='bicel'></div>",$btn,"50px","TituloA");                        
-            $form = c_form_ult('',$CN,'FPerfil', 'CuadroA', $path, $uRLForm, $CodigoPerfil, $tSelectD);
+            $form = c_form_adp('',$CN,'FPerfil', 'CuadroA', $path, $uRLForm, $CodigoPerfil, $tSelectD,'Codigo');
             $form = "<div style='width:100%;'>".$btn.$form."</div>";
             $s = "<div class= 'PanelPadding'>".$form."</div>";             
             WE($s);

@@ -9,13 +9,24 @@ if(get("optionbody")){ W(optionbody(get("optionbody"))); }
 
 function optionbody($Arg){
 
+ /*
+    $password = '12345678';
+   // Obtiene el hash, dejando que el salt sea generado be automáticamente
+    $hash = _crypt($password);
+    w($hash);
+*/
+
     $JsProduccion             = 'onclick=enviaVista("./_entidad/e_productos.php?Productos=Listado","optionbody","");';
     $JsTProduccion            = 'onclick=enviaVista("./_entidad/e_tipoproductos.php?TipoProductos=Listado","optionbody","");';
+    $JsCProduccion            = 'onclick=enviaVista("./_entidad/e_categoriaproductos.php?CategoriaProductos=Listado","optionbody","");';
     $JsIngresoProducto        = 'onclick=enviaVista("./_entidad/e_ingresoproducto.php?IngresoProducto=Listado","optionbody","");';
+    $JsProveedor              = 'onclick=enviaVista("./_entidad/e_proveedor.php?Proveedor=Listado","optionbody","");';
     $JsReporteProduccion      = 'onclick=enviaVista("./_entidad/e_reporteproducto.php?ReporteProductos=ReportProducto","optionbody","");';
     $JsIngresoProduccion      = 'onclick=enviaVista("./_entidad/e_reporteproducto.php?ReporteProductos=ReportIngresos","optionbody","");';          
     $JsUsuario                = 'onclick=enviaVista("./_entidad/e_usuario.php?Usuario=Listado","optionbody","");';          
     $JsUsuarioPerfil          = 'onclick=enviaVista("./_entidad/e_usuarioperfil.php?UsuarioPefil=Listado","optionbody","");';          
+    $JsFichas                 = 'onclick=enviaVista("./_entidad/e_fichatecnica.php?Ficha=Listado","optionbody","");';          
+    $JsClientes                = 'onclick=enviaVista("./_entidad/e_clientes.php?Cliente=Listado","optionbody","");';          
     
     switch ($Arg) {
         case 'Produccion':
@@ -26,7 +37,9 @@ function optionbody($Arg){
                                 <ul class=flex-container>
                                     <li class='item CuadroBotton' {$JsProduccion}  id=item1> <div class=CuadroBotton>Registro Producto</div></li>
                                     <li class='item CuadroBotton' {$JsTProduccion} id=item1> <div class=CuadroBotton>Tipo de Productos</div></li>                        
+                                    <li class='item CuadroBotton' {$JsCProduccion} id=item1> <div class=CuadroBotton>Categoria de Productos</div></li>                        
                                     <li class='item CuadroBotton' {$JsIngresoProducto} id=item1> <div class=CuadroBotton>Almacén</div></li>                        
+                                    <li class='item CuadroBotton' {$JsProveedor} id=item1> <div class=CuadroBotton>Proveedor</div></li>                        
                                 </ul>         
                              </div>";
             break;    
@@ -47,8 +60,29 @@ function optionbody($Arg){
                     {$Title}
                     <ul class=flex-container>
                         <li class='item CuadroBotton' {$JsUsuario} id=item3><div class=CuadroBotton>Registro de Usuarios</div></li>                        
-                        <li class='item CuadroBotton' {$JsUsuarioPerfil} id=item3><div class=CuadroBotton>Tipo de Perfiles</div></li>                                                
+                        <li class='item CuadroBotton' {$JsUsuarioPerfil} id=item3><div class=CuadroBotton>Tipo de Perfiles</div></li>                                                                      
+                        <li class='item CuadroBotton' {$JsClientes} id=item3><div class=CuadroBotton>Tipo de Perfiles</div></li>                                                                      
                     </ul>        
+                 </div>";
+            break;
+        case 'Pedidos':
+            $Title = tituloBtnPn("<span>Pedidos</span><p>Opciones</p>", "","100px","TituloA");
+            $Menu = "<div id=optionbody>
+                    {$Title}
+                    <ul class=flex-container>
+                        <li class='item CuadroBotton' {$JsFichas} id=item4><div class=CuadroBotton>Fichas Tecnicas</div></li>
+                        
+                    </ul>         
+                 </div>";
+            break;
+         case 'Clientes':
+            $Title = tituloBtnPn("<span>Pedidos</span><p>Opciones</p>", "","100px","TituloA");
+            $Menu = "<div id=optionbody>
+                    {$Title}
+                    <ul class=flex-container>
+                        <li class='item CuadroBotton' {$JsClientes} id=item4><div class=CuadroBotton>Clientes</div></li>
+                        
+                    </ul>         
                  </div>";
             break;
         case 'Documento':

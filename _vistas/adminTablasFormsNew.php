@@ -2,7 +2,7 @@
 require_once('../_librerias/php/funciones.php');
 require_once('../_librerias/php/conexiones.php');
 error_reporting(E_ERROR);
-$enlace = "./_vistas/adminTablasFormsNew.php";
+$enlace = "./_vistas/adminTablasForms.php";
 $vConex = GestionDC();
 
 if (get('muestra') !=''){ detalleForm(get('muestra'),get('codigoForm'));}

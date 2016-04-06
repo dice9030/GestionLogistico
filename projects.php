@@ -16,14 +16,11 @@ $Servidor = $_SESSION['Servidor']['string'];
 $ConexionEmpresa = conexSis_Emp($Servidor,$Nom_BD);
 
 if(get("transaccion")){ rd($enlace); }
-#IMPRIME TODO EL CUERPO
-
-//$s .= '<div style="float:left;width:100%;height:100%;padding:10px 0%;">';
 
 $s = menuEmpresaSite_adm($Codigo_Empresa , $Codigo_Usuario);	
 $s .= '<div class=cuerpobody >';
 $s .= '<div id="Menu" class="Menu" ></div>';
-$s .= '<div id="Body" class="Body" >body</div>';
+$s .= '<div id="Body" class="Body" ></div>';
 $s .= '</div>';
 
 $s .= '</div>';
@@ -32,8 +29,6 @@ W($s);
 		
 	
 ?>
-
-
 
 <link href="./_estilos/calendario.css" rel="stylesheet" type="text/css" />
 <script type="text/javascript" src="_librerias/js/calendar.js"></script>
