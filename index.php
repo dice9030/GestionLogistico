@@ -28,7 +28,7 @@
 					<label class="login-field-icon fui-lock" for="login-pass"></label>
 					</div>
 
-					<a class="btn btn-primary btn-large btn-block" href="#" onclick="enviaFormRD('../_vistas/login_user.php?metodo=login_usuario&transaccion=OTRO','Form_login_usuario','panelMsg','/projects.php');" >login</a>
+					<a class="btn btn-primary btn-large btn-block" href="#" onclick="enviaFormRD('../_vistas/login_user.php?metodo=login_usuario&transaccion=OTRO','Form_login_usuario','panelMsg','/projects.php?');" >login</a>
 					
 				</form>
 				

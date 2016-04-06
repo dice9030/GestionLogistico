@@ -100,14 +100,14 @@ function menuMaster() {
             <meta name='author' content=''>
             <script type='text/javascript' src='_librerias/js/global.js'></script>
             <script type='text/javascript' src='_librerias/js/ajaxglobal.js'></script>
-            <script type='text/javascript' src='/owlgroup/_librerias/js/jquery-2.1.1.min.js'></script>
-            <script type='text/javascript' src='/owlgroup/_librerias/js/jquery-ui.min.js'></script>
-            <script type='text/javascript' src='/owlgroup/_librerias/js/owlchat/zilli.js'></script>
-            <script type='text/javascript' src='/owlgroup/_librerias/js/owlchat/AjaxZilli.js'></script>
-            <script type='text/javascript' src='/owlgroup/_librerias/js/popup/jquery.popup.js'></script>
+            <script type='text/javascript' src='/_librerias/js/jquery-2.1.1.min.js'></script>
+            <script type='text/javascript' src='/_librerias/js/jquery-ui.min.js'></script>
+            <script type='text/javascript' src='/_librerias/js/owlchat/zilli.js'></script>
+            <script type='text/javascript' src='/_librerias/js/owlchat/AjaxZilli.js'></script>
+            <script type='text/javascript' src='/_librerias/js/popup/jquery.popup.js'></script>
 
             <link href='./_estilos/OwlStyles.css' rel='stylesheet' type='text/css'/>
-            <link href='/owlgroup/_estilos/popup/popup.css' rel='stylesheet' type='text/css'/>
+            <link href='/_estilos/popup/popup.css' rel='stylesheet' type='text/css'/>
         </head>
         <body>
             <div class='site'>

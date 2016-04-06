@@ -1,9 +1,9 @@
 <?php
 
-const DB_SERVER ="localhost";
+const DB_SERVER ="104.236.16.206";
 const DB_NAME = "gestiondc";
-const DB_USER = "root";
-const DB_PASSWORD = "";
+const DB_USER = "DCelis";
+const DB_PASSWORD = "28rcYMcCtVdsTvLm";
 
 function PDOConnection($server = null, $dbname = null, $user = null, $password = null) {
     $SERVER = ($server) ? $server : DB_SERVER;
@@ -41,9 +41,9 @@ function conexSis_Emp($db_name) {
 
 
 function conexSys(){
-        $servidor ="localhost";
-        $usuario="root";
-        $contrasena="";
+        $servidor ="104.236.16.206";
+        $usuario="DCelis";
+        $contrasena="28rcYMcCtVdsTvLm";
         $nombreBDatos = "gestiondc";
         $conexionA = mysql_connect($servidor, $usuario, $contrasena);
         mysql_select_db($nombreBDatos, $conexionA);
@@ -53,9 +53,9 @@ function conexSys(){
 
 
 function conexDefsei(){
-        $servidor ="localhost";
-        $usuario="root";
-        $contrasena="";
+        $servidor ="104.236.16.206";
+        $usuario="DCelis";
+        $contrasena="28rcYMcCtVdsTvLm";
         $nombreBDatos = "gestiondc";
         $conexionA = mysql_connect($servidor, $usuario, $contrasena);
         mysql_select_db($nombreBDatos, $conexionA);
@@ -65,7 +65,7 @@ function conexDefsei(){
 function ConGestionDC(){
     try{
         $con = new mysqli();
-        $con->connect('localhost', 'root', '', 'gestiondc');
+        $con->connect('104.236.16.206', 'DCelis', '28rcYMcCtVdsTvLm', 'gestiondc');
         return $con;
     } catch (Exception $ex) {
         return "Error: ".$ex->getMessage();
