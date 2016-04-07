@@ -4,9 +4,9 @@
    echo "2";
    require_once('../_librerias/php/conexiones.php');
    echo "3";
-   require_once('e_module.php');
+   //require_once('e_module.php');
 
-
+echo "4";
 
 if(get("menu")){ menu(get("menu")); }
 
