@@ -1,6 +1,9 @@
 <?php
+   echo "1";
    require_once('../_librerias/php/funciones.php');
+   echo "2";
    require_once('../_librerias/php/conexiones.php');
+   echo "3";
    require_once('e_module.php');
 
 
