@@ -1,4 +1,4 @@
-var url_domain_current = "https://" + document.domain;
+var url_domain_current = "http://" + document.domain;
 //help comment
 CALENDAR_ID = null;
 ADMINISTRATION_CALENDAR_PROGRAMA_ALMACEN    = null;
@@ -902,8 +902,9 @@ function enviaFormRD(sUrl, formid, sDivCon, urlRedirecionamineto)
     sAjaxMotor = crearXMLHttpRequest();
     sAjaxMotor.open("POST", sUrl + "&TipoDato=texto&formId=" + formid, true);
     sAjaxMotor.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded; charset=ISO-8859-1');
-    var sUrlRD = sUrl.split("?");
+    var sUrlRD = sUrl.split("?");    
     sAjaxMotor.onreadystatechange = function () {
+      
         procesarEventosR(sAjaxMotor, sDivCon, sUrl, urlRedirecionamineto, sUrlRD[1] + "&" + cadenaFormulario)
     }
     sAjaxMotor.send(cadenaFormulario);
@@ -922,7 +923,8 @@ function procesarEventosR(sAjaxMotor, divContenido, url, urlRD, cadenaFormulario
                 // alert(cadenaNew);
                 if (cadenaNew != -1) {
                     // lurlRD = urlRD;
-                     
+                    // console.log(urlRD + "&" + cadenaFormulario);
+                    // exit;
                     location.href = urlRD + "&" + cadenaFormulario;
                     return false;
                 }
@@ -2753,7 +2755,7 @@ function Upload(settings){
                         };
                         xhr.send(formData);
 
-                        var socket = io('https://multimedia.owlgroup.org/', {'force new connection': true, secure: true});
+                        var socket = io('http://multimedia.owlgroup.org/', {'force new connection': true, secure: true});
 
                         socket.on('progress', function(data){
                             //Change message row
@@ -2790,7 +2792,7 @@ function Upload(settings){
                                     token       : data.token,
                                     estado      : "Publico"
                                 },
-                                url         : "https://multimedia.owlgroup.org/description",
+                                url         : "http://multimedia.owlgroup.org/description",
                                 method      : "POST",
                                 headers     : {"Accept": "application/json"}
                             })
