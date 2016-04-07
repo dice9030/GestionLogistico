@@ -12,10 +12,12 @@ if(get("menu")){ menu(get("menu")); }
 
 
 function menu($Arg){
+    echo "5";
     $title ="<div class=img-user><div class=cuadro-user><img src='_files/fotos/1.jpg' width=100px height=100px  ></div></div>
                 <div class=MenuVertical >Panel de Control</div>";
     switch ($Arg) {
         case 'Administrativo':
+             echo "6";  
             $Menu = '<div id="wrapper">    
                         '.$title.'
                     <ul class="menu">
