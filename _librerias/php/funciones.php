@@ -4333,7 +4333,8 @@ function post($name_field) {
 }
 
 function get($name_field) {
-    return protect($_GET[$name_field]);
+    #return protect($_GET[$name_field]);
+    return $_GET[$name_field];
 }
 
 function ListR($titulo, $sql, $conexion, $clase, $quiebre, $url, $enlaceCod, $panel, $name, $opcion) {

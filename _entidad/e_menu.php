@@ -10,9 +10,9 @@ echo "4";
 
 if(get("menu")){ menu(get("menu")); }
 
-
+echo "5";
 function menu($Arg){
-    echo "5";
+    echo "6";
     $title ="<div class=img-user><div class=cuadro-user><img src='_files/fotos/1.jpg' width=100px height=100px  ></div></div>
                 <div class=MenuVertical >Panel de Control</div>";
     switch ($Arg) {
