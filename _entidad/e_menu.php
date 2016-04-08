@@ -1,23 +1,19 @@
 <?php
-   echo "1";
+
    require_once('../_librerias/php/funciones.php');
-   echo "2";
    require_once('../_librerias/php/conexiones.php');
-   echo "3";
    //require_once('e_module.php');
 
-echo "4";
 
 if(get("menu")){ menu(get("menu")); }
 
-echo "5";
 function menu($Arg){
-    echo "6";
+
     $title ="<div class=img-user><div class=cuadro-user><img src='_files/fotos/1.jpg' width=100px height=100px  ></div></div>
                 <div class=MenuVertical >Panel de Control</div>";
     switch ($Arg) {
         case 'Administrativo':
-             echo "6";  
+ 
             $Menu = '<div id="wrapper">    
                         '.$title.'
                     <ul class="menu">

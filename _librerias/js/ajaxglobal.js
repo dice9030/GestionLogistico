@@ -922,9 +922,7 @@ function procesarEventosR(sAjaxMotor, divContenido, url, urlRD, cadenaFormulario
                 var cadenaNew = divCont.indexOf('REDIRECCIONAAJAX');
                 // alert(cadenaNew);
                 if (cadenaNew != -1) {
-                    // lurlRD = urlRD;
-                    // console.log(urlRD + "&" + cadenaFormulario);
-                    // exit;
+                    // lurlRD = urlRD;                  
                     location.href = urlRD + "&" + cadenaFormulario;
                     return false;
                 }

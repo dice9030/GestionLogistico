@@ -1,25 +1,25 @@
 <?php
 error_reporting(E_ERROR);
 ##
-echo "f1";
+
 require_once('conexiones.php');
-echo "f2";
+
 require_once('UploadService.php');
-echo "f3";
+
 require_once('class/S3.php');
-echo "f4";
+
 //require_once('api/vendor/autoload.php');
 require_once('excel_classes_v2/PHPExcel.php');
-echo "f5";
+
 //require_once('excel_classes_v2/PHPExcel/IOFactory.php');
 use Aws\Common\Credentials\Credentials;
 use Aws\S3\S3Client;
-echo "f6";
+
 date_default_timezone_set('America/Lima');
-echo "f7";
+
 //PDO connection is defined here!
 $PDO = PDOConnection();
-echo "f8";
+
 # DECLARACION DE VARIABLES CONSTANTES
 //PERFILES DE USUARIO
 const PERFIL_MASTER = 1;
@@ -40,7 +40,7 @@ $s3Client = S3Client::factory(array(
     'credentials' => $credentials
 ));
 */
-echo "f9";
+
 
 class file{
     public static function getComponentsOfDir($path){
@@ -137,7 +137,7 @@ class file{
         return in_array($fileExtension, $VIDEO_EXTENSIONS);
     }
 }
-echo "f11";
+
 class scorm {
     public static function parseManifest($fileContentData) {
         $parser = xml_parser_create();
@@ -561,7 +561,7 @@ class scorm {
         return (object) array_shift($importContents);
     }
 }
-echo "f12";
+
 class string{
     public static function crypt($string) {
         return crypt($string, '$2a$09$tARm1a9A9N7q1W9T9n5LqR$');
@@ -581,7 +581,7 @@ function vd($expresion) {
  * @param resource $link_identifier
  * @return array
  */
-echo "f13";
+
 function fetchAllArray($sql, $campo, $link_identifier = null) {
 
     if (is_null($link_identifier)) {
@@ -610,7 +610,7 @@ function fetchAllArray($sql, $campo, $link_identifier = null) {
  * @param string $sql
  * @return array
  */
-echo "f14";
+
 function fetchAllArrayIndex($sql) {
 
     $link_identifier = conexSys();
@@ -758,7 +758,7 @@ function fetchMx($Query, $columnName) {
 function W($string) {
     echo $string;
 }
-echo "f15";
+
 function Matris_Datos($sql, $conexion) {
   
     $consulta = mysql_query($sql, $conexion);
@@ -1207,7 +1207,7 @@ function c_form($titulo, $conexionA, $formC, $class, $path, $uRLForm, $codForm, 
     $v .= "</div>";
     return $v;
 }
-echo "f16";
+
 function InputAutocompletadoA($selectDinamico, $registro, $selectD, $rg2, $nameC, $vSizeLi, $UrlPrimerBtn, $formNP, $Validacion, $conexionA) {
 
     $selectD = $selectDinamico["" . $registro['NombreCampo'] . ""];
@@ -2021,7 +2021,7 @@ function c_form_adp($titulo, $conexionA, $formC, $class, $path, $uRLForm, $codFo
     $v .= "</div>";
     return $v;
 }
-echo "f17";
+
 function c_form_adp_catalogo($titulo, $conexionA, $formC, $class, $path, $uRLForm, $codForm, $selectDinamico, $key) {
 
     $sql = 'SELECT Codigo,Tabla, Descripcion FROM sys_form WHERE  Estado = "Activo" 
@@ -2491,7 +2491,7 @@ function c_form_adp_catalogo($titulo, $conexionA, $formC, $class, $path, $uRLFor
 #Creador : Dcelis
 #Motivo: Crear Campos sin formulario (<form></form>)
 ################################################################
-echo "f18";
+
 function c_No_form_adp($titulo, $conexionA, $formC, $class, $path, $uRLForm, $codForm, $selectDinamico, $key) {
 
     $sql = 'SELECT Codigo,Tabla, Descripcion FROM sys_form WHERE  Estado = "Activo"
@@ -7199,7 +7199,7 @@ function EstructuraTabla($conexionA, $nameTable) {
     }
     return $cmp;
 }
-echo "f19";
+
 function NombreColumnas($conexionA, $nameTable) {
     $sql = "SELECT * FROM $nameTable LIMIT 1";
     $cmp = array();
@@ -10197,4 +10197,4 @@ function FormatFechaText_2($fecha) {
         return false;
     }
 }
-echo "f20";
+
